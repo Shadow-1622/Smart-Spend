@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}
+  Articles
+{% endblock title %}
+
+{% block body %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, messages in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <span>{{ messages }}</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      
+        {% endif %}
+        {% endwith %}
+      </div>
+    <form method="POST">
+        <h4>ID</h4>
+        <input type="text" name="id">
+    <h4>Date</h4>
+        <input type="date" name="date" value="">
+    <h4>amount</h4>
+        <input type="integer" name="ampount">
+    <h4>category</h4>
+        <input type="text" name="category">
+    <h4>payee</h4>
+        <input type="text" name="payee">
+    <h4>mode</h4>
+        <input type="text" name="mode">
+        <input type="submit">
+    </form>
+</main>
+{% endblock body %}

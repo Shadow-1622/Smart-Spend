@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}
+  Articles
+{% endblock title %}
+
+
+{% block body %}
+<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+    {% for ex_vals in ex_val %}
+    <p>You paid {{ ex_vals.ampount }} on {{ ex_vals.date }} to {{ ex_vals.payee }} for {{ ex_vals.category }} through {{ ex_vals.mode }}           
+        </p>
+  <br>
+    {%  endfor %}
+</main>
+    
+{% endblock body %}

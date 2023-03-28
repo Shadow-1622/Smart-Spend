@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}
+  Home
+{% endblock title %}
+
+{% block body %}
+
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Dashboard</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary">Export</button> -->
+        </div>
+        <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          <span data-feather="calendar" class="align-text-bottom"></span>
+          This week
+        </button> -->
+      </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col md-4">
+            <h3>Week's Expense</h3>
+            <hr>
+        </div>
+        <div class="container-fluid">
+        <div class="col-md-8">
+            <div>
+                <canvas id="myChart"></canvas>
+              </div>
+              
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              
+              <script>
+                const ctx = document.getElementById('myChart');
+              let ex_amt1= JSON.parse({{ex_amts | tojson}});
+              let ex_date1= JSON.parse({{ex_dates | tojson}});
+                new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: ex_date1,
+                    datasets: [{
+                      label: 'Transactions in ₹',
+                      data: ex_amt1,
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'],
+                        borderWidth: 1
+                    }]
+                    
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+              </script>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <h2>Transactions</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            {% for header in headings %}
+            <th scope="col">{{ header}} </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {% for row in data %}
+          <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+          {% endfor %}  -->
+
+        <tr>
+          <!-- For Words -->
+                <!-- {% for ex_vals in ex_val %}
+                <h5>
+                {{ ex_vals }}
+              </h5>
+                <br>
+                {%  endfor %} -->
+
+            <!--For table -->
+                {% for ex_vals in ex_val %}
+                <td>
+                {{ ex_vals.ampount }} 
+                <td>
+                  {{ ex_vals.category }}
+                  <td>
+                    {{ ex_vals.payee }}
+                    <td>
+                      {{ ex_vals.mode }}
+                      <td>
+                        {{ ex_vals.date }}
+                      </td>
+                    </td>
+                  </td>
+                </td>
+              </td>
+            </tr>
+                {%  endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+
+
+
+{% endblock body %}
+
