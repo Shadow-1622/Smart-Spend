@@ -1,0 +1,24 @@
+<!doctype html>
+
+{% extends 'base.html' %}
+
+{% block title %}
+  Articles
+{% endblock title %}
+
+{% block body %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<html>
+    <head>
+        <title>Upload Image</title>
+    </head>
+    <body>
+        <h1>Upload Image</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="Upload" href="http://127.0.0.1:5000/expenses/addexp">
+        </form>
+    </body>
+</html>
+</main>
+{% endblock body %}

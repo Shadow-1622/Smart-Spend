@@ -3,13 +3,13 @@ from datetime import date
 from flask_sqlalchemy import SQLAlchemy
 import json
 
+import ocr
 
 app = Flask(__name__)
-
 
 db = SQLAlchemy()
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///expense1.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///expense2.db"
 db.init_app(app)
 
 
@@ -42,6 +42,7 @@ def user_list():
 
 @app.route("/expenses/addexp", methods=["GET", "POST"])
 def user_create():
+    
     if request.method == "POST":
         expenses = Expense1(
             id=request.form["id"], 
@@ -58,11 +59,12 @@ def user_create():
         if ex_id1 == None:
             db.session.add(expenses)
             flash("Expense added sucessfully", "success")
+            db.session.commit()
             return redirect(request.url)
         else:
             flash("Id already present", "warning")
             return redirect(request.url)
-        db.session.commit()
+    
         # return redirect(url_for("expense_detail", id=expenses.id))
     return render_template("create.html")
 
@@ -71,6 +73,35 @@ def expense_detail(id):
     expenses = db.get_or_404(Expense1, id)
     ex_val = Expense1.query.order_by(Expense1.date)
     return render_template("detail.html", expenses=expenses, ex_val=ex_val)
+
+
+global ampount1 
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    ampount1 = None;
+    if request.method == 'POST':
+        file= None
+        try: 
+            file = request.files['file']        
+            filename = 'image.jpg'  # change this to the desired name for the image
+            file.save(filename)
+            image='image.jpg'
+            ampount1= int(ocr.ocro(image))
+            print(ampount1)
+            return render_template("create.html", ampount1=ampount1)
+        except:        
+            return user_create()
+        # print(ocr.ocro(image))
+        # return f"Image uploaded and saved as {filename}!"
+        
+        # return redirect('/expenses/addexp',ampount1=ampount1)
+
+    return render_template("upload.html")
+
+
+
+
 
 #Query data
 
@@ -149,15 +180,6 @@ if __name__ == "__main__":
     app.run()
     
     
-
-
-
-
-
-
-
-
-
 
 
 

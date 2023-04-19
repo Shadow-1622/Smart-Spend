@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 
+<style>
+    .GFG {
+        background-color: white;
+        border: 2px solid black;
+        color: green;
+        padding: 5px 10px;
+        text-align: center;
+        display: inline-block;
+        font-size: 20px;
+        margin: 10px 30px;
+        cursor: pointer;
+    }
+</style>
+
 {% block title %}
-  Articles
+  Add Expense
 {% endblock title %}
 
 {% block body %}
@@ -26,7 +40,7 @@
     <h4>Date</h4>
         <input type="date" name="date" value="">
     <h4>amount</h4>
-        <input type="integer" name="ampount">
+        <input type="integer" name="ampount" value="{{ ampount1 }}">
     <h4>category</h4>
         <input type="text" name="category">
     <h4>payee</h4>
@@ -35,5 +49,54 @@
         <input type="text" name="mode">
         <input type="submit">
     </form>
+
+    <br>
+    <button class="GFG" 
+    onclick="window.location.href = 'http://127.0.0.1:5000/upload';">
+        Click Here
+    </button>
+    <br>
+
+
+    <br>
+
+<h4></h4>
+    <br>
+
+
+    <h4></h4>
+
+
+
+    <br>
+
+
+
+
+
+    <h4></h4>
+
+
+
+
+
+
+
+
+
+
+    <h4>                                  
+
+
+
+
+
+
+
+
+
+
+        
+    </h4>
 </main>
 {% endblock body %}
